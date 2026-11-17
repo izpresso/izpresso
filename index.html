@@ -749,6 +749,12 @@ body:has(.bug-dialog[open]){overflow:hidden}
 .bug-done .btn{width:100%}
 @media (max-width:480px){.bug-head h2{font-size:32px}.bug-body{margin:0 10px 10px;padding:14px 14px 18px}.bug-card{padding-top:18px}}
 @media (prefers-reduced-motion:reduce){.bug-card{animation:none}.bug-close,.bug-link{transition:none}.bug-close:hover{transform:none}}
+
+/* panels that sit between a card's two headings */
+.mid-panel{padding:16px 18px 20px}
+.mid-guide{background:#E0F8FF}
+.mid-guide .g-list li:last-child{border-bottom:0}
+.mid-ask{background:#A68AE8}
 </style></head>
 <body class="bg-dots">
 
@@ -982,6 +988,14 @@ body:has(.bug-dialog[open]){overflow:hidden}
 
   <div class="card pink-bg">
     <div class="card-head ch-cyan">📋 Guidelines</div>
+    <div class="mid-panel mid-guide">
+      <ul class="g-list">
+        <li>Keep it fun and kind 💕</li>
+        <li>Public links only (YouTube, TikTok, Twitter, Reddit, Google Drive, etc.)</li>
+        <li>No harmful, explicit, or offensive content, please!!</li>
+        <li>I can't react to everything, but I read every single submission!</li>
+      </ul>
+    </div>
 
   <div class="card-head ch-pink">📤 Submit Your Content!</div>
     <div class="card-body">
@@ -1009,17 +1023,6 @@ body:has(.bug-dialog[open]){overflow:hidden}
     </div>
   </div>
 
-  <div class="card cyan-bg">
-    
-    <div class="card-body">
-      <ul class="g-list">
-        <li>Keep it fun and kind 💕</li>
-        <li>Public links only (YouTube, TikTok, Twitter, Reddit, Google Drive, etc.)</li>
-        <li>No harmful, explicit, or offensive content, please!!</li>
-        <li>I can't react to everything, but I read every single submission!</li>
-      </ul>
-    </div>
-  </div>
 </div>
 </div>
 
@@ -1031,6 +1034,16 @@ body:has(.bug-dialog[open]){overflow:hidden}
 
   <div class="card pink-bg">
     <div class="card-head ch-lime">💡 What to Ask!</div>
+    <div class="mid-panel mid-ask">
+      <div class="tag-row">
+        <span class="tag t-pink">❓ Q&A Questions</span>
+        <span class="tag t-cyan">💭 Life Advice</span>
+        <span class="tag t-lime">🎮 Gaming Recs</span>
+        <span class="tag t-yellow">💡 Video Ideas</span>
+        <span class="tag t-pink">🎮 Game Suggestions</span>
+        <span class="tag t-black">👋 Just Say Hi</span>
+      </div>
+    </div>
 
   <div class="card-head ch-pink">💌 Drop Your Message!</div>
     <div class="card-body">
@@ -1072,19 +1085,6 @@ body:has(.bug-dialog[open]){overflow:hidden}
     </div>
   </div>
 
-  <div class="card lime-bg">
-    
-    <div class="card-body">
-      <div class="tag-row">
-        <span class="tag t-pink">❓ Q&A Questions</span>
-        <span class="tag t-cyan">💭 Life Advice</span>
-        <span class="tag t-lime">🎮 Gaming Recs</span>
-        <span class="tag t-yellow">💡 Video Ideas</span>
-        <span class="tag t-pink">🎮 Game Suggestions</span>
-        <span class="tag t-black">👋 Just Say Hi</span>
-      </div>
-    </div>
-  </div>
 </div>
 </div>
 
