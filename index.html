@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>IzPresso ✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+
 <style>
 
 /* ── TOKENS ── */
@@ -766,6 +766,12 @@ body:has(.bug-dialog[open]){overflow:hidden}
 .mid-guide{background:#E0F8FF}
 .mid-guide .g-list li:last-child{border-bottom:0}
 .mid-ask{background:#A68AE8}
+/* ===== ONE FONT EVERYWHERE: ARCHIVO ===== */
+:root{--f-head:'Archivo',sans-serif;--f-body:'Archivo',sans-serif}
+html body,button,option,optgroup{font-family:'Archivo',sans-serif}
+input,select,textarea{font-family:'Archivo',sans-serif!important;font-weight:600;font-size:16px;font-variation-settings:normal}
+.sec-hed{font-family:'Archivo',sans-serif!important;font-style:normal!important;font-weight:900!important;font-variation-settings:'wdth' 62;text-transform:uppercase;font-size:clamp(2.4rem,7.5vw,3.8rem);line-height:1;letter-spacing:.01em}
+.card:has(.about-row) .card-head{font-variation-settings:'wdth' 62;letter-spacing:0}
 </style></head>
 <body class="bg-dots">
 
