@@ -750,6 +750,17 @@ body:has(.bug-dialog[open]){overflow:hidden}
 @media (max-width:480px){.bug-head h2{font-size:32px}.bug-body{margin:0 10px 10px;padding:14px 14px 18px}.bug-card{padding-top:18px}}
 @media (prefers-reduced-motion:reduce){.bug-card{animation:none}.bug-close,.bug-link{transition:none}.bug-close:hover{transform:none}}
 
+/* ===== SEND STUFF EXTRAS ===== */
+.ss-hint{margin:12px 0 0;padding:10px 12px;background:#FFE8F2;border:2px solid #25212C;font-weight:800;font-size:.88rem;line-height:1.45}
+.ss-hint[hidden]{display:none}
+.ss-sites{display:block;margin-top:6px;font-weight:700;font-size:.8rem;opacity:.8}
+#ss-art[hidden],#ss-artist-wrap[hidden]{display:none}
+.ss-check{display:flex;gap:10px;align-items:flex-start;margin:18px 0 6px;font-weight:800;font-size:.88rem;line-height:1.4;cursor:pointer}
+.ss-check input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:#FF68B4;cursor:pointer}
+.ss-err{margin:12px 0 0;padding:10px 12px;font-size:.9rem;font-weight:800;line-height:1.4;background:#FFE8F2;color:#B0124F;border:2px solid #B0124F}
+.ss-err[hidden]{display:none}
+#ss-send[disabled]{opacity:.65;cursor:wait}
+
 /* panels that sit between a card's two headings */
 .mid-panel{padding:16px 18px 20px}
 .mid-guide{background:#E0F8FF}
@@ -772,7 +783,7 @@ body:has(.bug-dialog[open]){overflow:hidden}
     <a class="nav-link" href="#" onclick="go('videos',this)">🎬 Videos</a>
     <a class="nav-link" href="#" onclick="go('sendstuff',this)">📦 Send Me Stuff</a>
     <a class="nav-link" href="#" onclick="go('askizzy',this)">💌 Ask Izzy</a>
-    <a class="nav-link" href="https://discord.gg/HsVwHaU7h" target="_blank" rel="noopener noreferrer">🤖 Join the Discord</a>
+    <a class="nav-link" href="https://discord.gg/FtffHnaV6w" target="_blank" rel="noopener noreferrer">🤖 Join the Discord</a>
     <a class="nav-live" id="nav-live" href="#" hidden onclick="goLive();return false"><i></i>Live now</a>
     <button class="nav-vote" onclick="scrollToVote()">⭐ Vote!</button>
   </div>
@@ -817,7 +828,7 @@ body:has(.bug-dialog[open]){overflow:hidden}
           <a class="soc tt" href="https://www.tiktok.com/@izpresso" target="_blank">♪ TikTok</a>
           <a class="soc ig" href="https://www.instagram.com/izpresso_/" target="_blank">◉ Instagram</a>
           <a class="soc tw" href="https://www.twitch.tv/izpresso_" target="_blank">● Twitch</a>
-          <a class="soc dc" href="https://discord.gg/HsVwHaU7h" target="_blank" rel="noopener noreferrer">Join the Discord</a>
+          <a class="soc dc" href="https://discord.gg/FtffHnaV6w" target="_blank" rel="noopener noreferrer">Join the Discord</a>
         </div>
       </div>
     </div>
@@ -982,6 +993,9 @@ body:has(.bug-dialog[open]){overflow:hidden}
         <span class="tag t-black">▶ YouTube Links</span>
         <span class="tag t-pink">💀 Fails</span>
         <span class="tag t-cyan">🤯 Crazy Moments</span>
+        <span class="tag t-lime">👗 Fit Checks</span>
+        <span class="tag t-pink">🐾 Animal Pics</span>
+        <span class="tag t-yellow">🎨 Fanart</span>
       </div>
     </div>
   </div>
@@ -993,16 +1007,20 @@ body:has(.bug-dialog[open]){overflow:hidden}
         <li>Keep it fun and kind 💕</li>
         <li>Public links only (YouTube, TikTok, Twitter, Reddit, Google Drive, etc.)</li>
         <li>No harmful, explicit, or offensive content, please!!</li>
+        <li>Fit checks: faces are totally optional, crop it if you want 💕 No photos of other people without their OK!</li>
+        <li>Fanart: if someone else made it, tell me who so I can credit them 🎨</li>
+        <li>Everything goes to my private inbox. Nothing gets posted until I've looked at it myself, and anything NSFW gets deleted and blocked.</li>
         <li>I can't react to everything, but I read every single submission!</li>
       </ul>
     </div>
 
   <div class="card-head ch-pink">📤 Submit Your Content!</div>
     <div class="card-body">
+      <div id="ss-form">
       <p style="margin-bottom:8px;font-size:.93rem;">Got something hilarious, chaotic, or just really cool? Send it!! I might react to it in a future video 🎬</p>
-      <label class="f-label">Your Username *</label>
+      <label class="f-label" for="ss-name">Your Username *</label>
       <input type="text" id="ss-name" placeholder="@yourname so I can credit you!" maxlength="40">
-      <label class="f-label">Type of Content *</label>
+      <label class="f-label" for="ss-type">Type of Content *</label>
       <select id="ss-type">
         <option value="">Pick a category</option>
         <option value="Gaming Clip">🎮 Gaming Clip</option>
@@ -1010,15 +1028,38 @@ body:has(.bug-dialog[open]){overflow:hidden}
         <option value="Meme">😂 Meme</option>
         <option value="YouTube Video">▶ YouTube Video</option>
         <option value="Funny Video">🎬 Funny Video / Fail</option>
+        <option value="Fit Check">👗 Fit Check</option>
+        <option value="Animal Pic">🐾 Animal Pics</option>
+        <option value="Fanart">🎨 Fanart</option>
         <option value="Other">💫 Other</option>
       </select>
-      <label class="f-label">Link to Content *</label>
-      <input type="url" id="ss-link" placeholder="https://...">
-      <label class="f-label">Why Should I React to This? 😂</label>
+      <div class="ss-hint" id="ss-hint" hidden>
+        <span id="ss-hint-text"></span>
+        <span class="ss-sites" id="ss-hint-sites"></span>
+      </div>
+      <div id="ss-art" hidden>
+        <label class="f-label" for="ss-by">Who made it? *</label>
+        <select id="ss-by">
+          <option value="">Pick one</option>
+          <option value="me">🎨 I made it!</option>
+          <option value="other">💕 Someone else made it</option>
+        </select>
+        <div id="ss-artist-wrap" hidden>
+          <label class="f-label" for="ss-artist">Artist's Name or @ *</label>
+          <input type="text" id="ss-artist" placeholder="@theartist (so I can credit them!)" maxlength="60">
+        </div>
+      </div>
+      <label class="f-label" for="ss-link" id="ss-link-label">Link to Content *</label>
+      <input type="url" id="ss-link" placeholder="https://..." maxlength="500">
+      <label class="f-label" for="ss-why">Why Should I React to This? 😂</label>
       <textarea id="ss-why" placeholder="Hype it up!!" style="min-height:80px" maxlength="300"></textarea>
-      <label class="f-label">Your Social (optional, for credit)</label>
+      <label class="f-label" for="ss-social">Your Social (optional, for credit)</label>
       <input type="text" id="ss-social" placeholder="@yourusername" maxlength="40">
-      <button class="btn pink-btn" onclick="submitStuff()">🚀 Send It to Izzy!</button>
+      <label class="ss-check"><input type="checkbox" id="ss-sfw"><span>I promise this is SFW (safe for work), it's mine or I'm allowed to share it, and Izzy can react to it or show it in a video with credit 💕</span></label>
+      <div class="bug-hp" aria-hidden="true"><label>Leave this empty<input type="text" id="ss-hp" tabindex="-1" autocomplete="off"></label></div>
+      <p class="ss-err" id="ss-err" role="alert" hidden></p>
+      <button class="btn pink-btn" id="ss-send" onclick="submitStuff()">🚀 Send It to Izzy!</button>
+      </div>
       <div class="ok-box ok-green" id="ss-ok">📬 Sent!! Izzy might react to this in a future video!! 🎬💖</div>
     </div>
   </div>
@@ -1240,22 +1281,126 @@ function submitVote() {
 }
 
 // ─── SEND STUFF ──────────────────────────────────────────
-async function submitStuff() {
-  const name   = document.getElementById('ss-name').value.trim();
-  const type   = document.getElementById('ss-type').value;
-  const link   = document.getElementById('ss-link').value.trim();
-  const why    = document.getElementById('ss-why').value.trim();
-  const social = document.getElementById('ss-social').value.trim();
-  if (!name || !type || !link) { alert('Need your name, type, and a link!! 💕'); return; }
+const SS_PIC_TYPES = ['Fit Check','Animal Pic','Fanart'];
+const SS_LABELS = { 'Fit Check':'👗 FIT CHECK', 'Animal Pic':'🐾 ANIMAL PIC', 'Fanart':'🎨 FANART' };
+const SS_HINTS = {
+  'Fit Check':  "Show me your outfit! 👗 Faces are totally optional, crop it if you want. Post the pic somewhere public, then paste the link.",
+  'Animal Pic': "Pets, strays, zoo pals, backyard birds... all animals welcome! 🐾 Post the pic somewhere public, then paste the link.",
+  'Fanart':     "Drew something? Or found art you love? 🎨 Paste a link to it. If someone else made it, tell me who so I can credit them!"
+};
+const SS_LINK_LABELS = { 'Fit Check':'Link to Your Pic *', 'Animal Pic':'Link to the Pic *', 'Fanart':'Link to the Art *' };
+const SS_SITES = ['imgur.com','ibb.co','postimg.cc','drive.google.com','photos.google.com','photos.app.goo.gl','dropbox.com',
+  'instagram.com','tiktok.com','twitter.com','x.com','bsky.app','reddit.com','redd.it','tumblr.com','pinterest.com','pin.it',
+  'deviantart.com','artstation.com','pixiv.net','flickr.com','flic.kr','cara.app','youtube.com','youtu.be'];
+const SS_SITES_TEXT = 'Works with: Imgur, Google Drive/Photos, Dropbox, Instagram, TikTok, X/Twitter, Bluesky, Reddit, Tumblr, Pinterest, DeviantArt, ArtStation, Pixiv, Flickr, YouTube.';
+/* Quick filter for the obvious stuff. It is a speed bump, not a wall: Izzy still reviews everything. */
+const SS_BAD_WORDS = /\b(nsfw|porn\w*|xxx|hentai|nhentai|rule ?34|r34|onlyfans|fansly|xvideos|xhamster|xnxx|redtube|youporn|e621|gelbooru|bdsm|nudes)\b|(^|[^\w])18\s?\+/i;
+const SS_BAD_COMPACT = /(porn|nsfw|hentai|onlyfans|xvideos|xhamster|xnxx|youporn|rule34|nhentai|fansly)/;
 
-  await sendToFormspree(FORMSPREE_STUFF, {
-    _subject: `📦 Send Stuff from @${name}`,
-    username: name, content_type: type, link, reason: why, social
-  });
+let ssStart = 0, ssBusy = false;
+const ssEl = id => document.getElementById(id);
+function ssErr(msg) {
+  const e = ssEl('ss-err');
+  if (!msg) { e.hidden = true; e.textContent = ''; return; }
+  e.textContent = msg; e.hidden = false;
+  e.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function ssTypeChanged() {
+  const t = ssEl('ss-type').value, pic = SS_PIC_TYPES.includes(t);
+  ssEl('ss-hint').hidden = !pic;
+  if (pic) { ssEl('ss-hint-text').textContent = SS_HINTS[t]; ssEl('ss-hint-sites').textContent = SS_SITES_TEXT; }
+  ssEl('ss-art').hidden = t !== 'Fanart';
+  ssEl('ss-link-label').textContent = pic ? SS_LINK_LABELS[t] : 'Link to Content *';
+  ssEl('ss-link').placeholder = pic ? 'Paste the link to your pic here' : 'https://...';
+  ssErr('');
+}
+function ssByChanged() { ssEl('ss-artist-wrap').hidden = ssEl('ss-by').value !== 'other'; }
+(function () {
+  const f = ssEl('ss-form');
+  ['input','change'].forEach(ev => f.addEventListener(ev, () => { if (!ssStart) ssStart = Date.now(); }));
+  ssEl('ss-type').addEventListener('change', ssTypeChanged);
+  ssEl('ss-by').addEventListener('change', ssByChanged);
+})();
 
-  document.getElementById('ss-ok').style.display = 'block';
-  ['ss-name','ss-type','ss-link','ss-why','ss-social'].forEach(id => document.getElementById(id).value = '');
+function ssHostAllowed(host) { return SS_SITES.some(d => host === d || host.endsWith('.' + d)); }
+function ssLooksNsfw(str, compactToo) {
+  let t = str; try { t = decodeURIComponent(str); } catch (e) {}
+  t = t.replace(/[​-‍﻿]/g, '');
+  if (SS_BAD_WORDS.test(t)) return true;
+  return compactToo && SS_BAD_COMPACT.test(t.toLowerCase().replace(/[\s._\-*]+/g, ''));
+}
+function ssRate(link) {
+  try {
+    const now = Date.now(); let log = JSON.parse(localStorage.getItem('izp_ss_log') || '[]');
+    log = log.filter(x => now - x.t < 864e5);
+    if (log.some(x => x.l === link)) return "You already sent that one!! Thank you 💕";
+    if (log.filter(x => now - x.t < 6e5).length >= 3) return "Whoa, slow down! You've sent a bunch just now. Try again in a few minutes 💕";
+    if (log.length >= 10) return "That's a lot of submissions for today! Come back tomorrow 💕";
+    localStorage.setItem('izp_ss_log', JSON.stringify(log)); return '';
+  } catch (e) { return ''; }
+}
+function ssRecord(link) {
+  try {
+    const log = JSON.parse(localStorage.getItem('izp_ss_log') || '[]'); log.push({ t: Date.now(), l: link });
+    localStorage.setItem('izp_ss_log', JSON.stringify(log.slice(-30)));
+  } catch (e) {}
+}
+async function ssPost(payload) {
+  const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 15000);
+  try {
+    const r = await fetch(FORMSPREE_STUFF, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload), signal: ctl.signal });
+    return r.ok;
+  } catch (e) { return false; } finally { clearTimeout(to); }
+}
+function ssSuccess() {
+  ssEl('ss-ok').style.display = 'block';
+  ['ss-name','ss-type','ss-link','ss-why','ss-social','ss-by','ss-artist'].forEach(id => ssEl(id).value = '');
+  ssEl('ss-sfw').checked = false; ssTypeChanged(); ssByChanged(); ssStart = 0;
   pop();
+}
+async function submitStuff() {
+  if (ssBusy) return;
+  ssEl('ss-ok').style.display = 'none'; ssErr('');
+  const name = ssEl('ss-name').value.trim(), type = ssEl('ss-type').value, why = ssEl('ss-why').value.trim(), social = ssEl('ss-social').value.trim();
+  const by = ssEl('ss-by').value, artist = ssEl('ss-artist').value.trim();
+  let link = ssEl('ss-link').value.trim();
+
+  /* bots: filled the hidden field, or "typed" the whole form in under 3 seconds. Pretend it worked, send nothing. */
+  if (ssEl('ss-hp').value || !ssStart || Date.now() - ssStart < 3000) { ssSuccess(); return; }
+
+  if (!name || !type || !link) { ssErr('Need your name, the type, and a link!! 💕'); return; }
+  const pic = SS_PIC_TYPES.includes(type);
+  if (type === 'Fanart') {
+    if (!by) { ssErr('Tell me who made the art so I can credit them! 🎨'); return; }
+    if (by === 'other' && !artist) { ssErr("Who's the artist? Add their name or @ so I can credit them 💕"); return; }
+  }
+
+  if (!/^[a-z][a-z0-9+.\-]*:/i.test(link)) link = 'https://' + link;
+  let u; try { u = new URL(link); } catch (e) { ssErr("That link doesn't look right. Paste the full link, like https://..."); return; }
+  const host = u.hostname.toLowerCase().replace(/^www\./, '');
+  if (u.protocol !== 'https:' || u.username || u.password || !host.includes('.') || /^[\d.]+$/.test(host) || host.includes(':')) {
+    ssErr('Please use a normal public https:// link 💕'); return;
+  }
+  if (pic && !ssHostAllowed(host)) { ssErr("I can only open links from the sites listed above for pics and art. Upload it to one of those and paste that link 💕"); return; }
+
+  if (ssLooksNsfw(link, true) || ssLooksNsfw(name, true) || ssLooksNsfw(social, true) || ssLooksNsfw(artist, true) || ssLooksNsfw(why, false)) {
+    ssErr("Hmm, that looks like it might not be SFW, so I can't send it. If that's a mistake, tweak the wording and try again, or just DM me 💕"); return;
+  }
+  if (!ssEl('ss-sfw').checked) { ssErr('Please tick the box to promise it is SFW and OK to share 💕'); return; }
+
+  const rate = ssRate(link.toLowerCase()); if (rate) { ssErr(rate); return; }
+
+  ssBusy = true; const btn = ssEl('ss-send'), label = btn.textContent; btn.disabled = true; btn.textContent = 'Sending...';
+  const ok = await ssPost({
+    _subject: `${SS_LABELS[type] ? '[' + SS_LABELS[type] + '] ' : ''}📦 Send Stuff from @${name.replace(/^@/, '')}`,
+    username: name, content_type: type, link, link_site: host, reason: why, social,
+    made_by: type === 'Fanart' ? (by === 'me' ? 'Sender made it' : 'Someone else: ' + artist) : '',
+    sfw_promise: 'yes', _gotcha: ''
+  });
+  ssBusy = false; btn.disabled = false; btn.textContent = label;
+  if (!ok) { ssErr("Couldn't send that one. Check your connection and try again, or DM me 💕"); return; }
+  ssRecord(link.toLowerCase());
+  ssSuccess();
 }
 
 // ─── ASK IZZY ────────────────────────────────────────────
